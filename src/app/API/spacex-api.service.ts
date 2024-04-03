@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-// import { Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { LaunchData } from '../interfaces/launch';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,18 @@ export class SpacexApiService {
 
   constructor(private http: HttpClient) { }
 
-  getMissions(){
-    return this.http.get(`${this.baseUrl}/launches`);
+
+  // with observables we unsure that we get the data from the API
+  // and that the data is returned in the form of our interface LaunchData
+  getMissions(): Observable<LaunchData[]>{
+    return this.http.get<LaunchData[]>(`${this.baseUrl}/launches`);
   }
 
-  // getMissionDetails(flightNumber: number) {
-  //   return this.http.get(`${this.baseUrl}/launches/${flightNumber}`);
-  // }
+  getMissionDetails(flightNumber: number): Observable<LaunchData> {
+    return this.http.get<LaunchData>(`${this.baseUrl}/launches/${flightNumber}`);
+  }
 
-  // getLaunches() {
-  //   return this.http.get('https://api.spacexdata.com/v3/launches');
-  // }
+  getMissionByYear(year: string): Observable<LaunchData[]> {
+    return this.http.get<LaunchData[]>(`${this.baseUrl}/launches?launch_year=${year}`);
+  }
 }

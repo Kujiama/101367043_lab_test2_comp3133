@@ -1,10 +1,26 @@
-<ul class="flex flex-wrap">
-    <li *ngFor="let mission of missions">   
-        <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <img [src]="mission.links.mission_patch" alt="Mission Image" class="mb-4 rounded-lg">
-            <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">{{ mission.title }}</h3>
-            <p class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">{{ mission.launch_year }}</p>
-            <p class="font-normal text-gray-700 dark:text-gray-400">{{ mission.details }}</p>
-        </a>
-    </li>
-</ul>
+<main class=" md:mx-72 my-12">
+    <div class="flex justify-between items-center my-4">
+        <h1 class="text-2xl font-bold text-gray-90">SpaceX Missions</h1>
+        <div>
+            <select [(ngModel)]="filterYear" class="px-4 py-2 border rounded mr-2">
+                <option value="">Select Year</option>
+                <option *ngFor="let year of launchYears" [value]="year">{{ year }}</option>
+            </select>
+            <button (click)="filterMissionByYear()" class="px-4 py-2 bg-blue-500 text-white rounded">Filter</button>
+        </div>
+    </div>
+    <ul class="flex flex-wrap justify-between items-center gap-8">
+        <li *ngFor="let mission of missions">
+            <a [routerLink]="['launches', mission.flight_number]" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 h-3/4">
+                <!-- if patch exist -->
+                <img *ngIf="mission.links.mission_patch" [src]="mission.links.mission_patch" class="w-full h-75 object-cover object-center" alt="Mission Patch">
+                <!-- if image does not exist -->
+                <img *ngIf="!mission.links.mission_patch" src="https://via.placeholder.com/500" class="w-full h-75 object-cover object-center" alt="Mission Patch">
+                <h5 class="mb-2 text-md font-bold text-gray-900 dark:text-white">{{ mission.mission_name }}</h5>
+                <p class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">{{ mission.launch_year }}</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">{{ mission.details }}</p>
+            </a>
+        </li>
+    </ul>
+</main>
+

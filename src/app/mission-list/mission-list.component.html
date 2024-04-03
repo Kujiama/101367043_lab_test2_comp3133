@@ -13,12 +13,17 @@
         <li *ngFor="let mission of missions">
             <a [routerLink]="['launches', mission.flight_number]" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 h-3/4">
                 <!-- if patch exist -->
-                <img *ngIf="mission.links.mission_patch" [src]="mission.links.mission_patch" class="w-full h-75 object-cover object-center" alt="Mission Patch">
+                <img *ngIf="mission.links.mission_patch" [src]="mission.links.mission_patch" class="w-45 object-cover object-center" alt="Mission Patch">
                 <!-- if image does not exist -->
-                <img *ngIf="!mission.links.mission_patch" src="https://via.placeholder.com/500" class="w-full h-75 object-cover object-center" alt="Mission Patch">
+                <img *ngIf="!mission.links.mission_patch" src="https://via.placeholder.com/500" class="w-45 object-cover object-center" alt="Mission Patch">
+                <hr class="my-3">
                 <h5 class="mb-2 text-md font-bold text-gray-900 dark:text-white">{{ mission.mission_name }}</h5>
-                <p class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">{{ mission.launch_year }}</p>
-                <p class="text-sm text-gray-600 dark:text-gray-400">{{ mission.details }}</p>
+                <p class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Launch Year: {{ mission.launch_year }}</p>
+                <p class="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    Launch Status:
+                    <span *ngIf="mission.launch_success" class="text-green-500">Success</span>
+                    <span *ngIf="!mission.launch_success" class="text-red-500">Failed</span>
+                </p>
             </a>
         </li>
     </ul>

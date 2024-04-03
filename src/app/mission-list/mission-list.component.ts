@@ -1,8 +1,8 @@
 import { Component ,OnInit} from '@angular/core';
-import { SpacexApiService } from '../API/spacex-api.service';
+import { SpacexApiService } from '../network/spacex-api.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { LaunchData } from '../interfaces/launch';
+import { LaunchData } from '../models/launch';
 import { FormsModule } from '@angular/forms';
 
 

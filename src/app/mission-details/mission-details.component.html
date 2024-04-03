@@ -1,0 +1,66 @@
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div class="text-center mb-4">
+        <a href="/" class="text-blue-600 hover:text-blue-800 font-semibold text-lg">
+            &larr; Back to Launch List
+        </a>
+    </div>
+    <div class="w-full max-w-4xl p-6 bg-white rounded-lg shadow-xl">
+        <div class="flex flex-col md:flex-row">
+            <div class="md:w-1/3 border-r-2 border-black">
+                <img *ngIf="launchDetail.links?.mission_patch" [src]="launchDetail.links.mission_patch" class="rounded-lg" alt="Mission Patch">
+                <!-- Links -->
+                <ul class="flex items-center justify-around">
+                    <li *ngIf="launchDetail.links?.article_link" class="mt-2">
+                        <a [href]="launchDetail.links.article_link" class="text-blue-600 hover:text-blue-800 font-semibold">
+                            Article
+                        </a>
+                    </li>
+                    <li *ngIf="launchDetail.links?.wikipedia" class="mt-2">
+                        <a [href]="launchDetail.links.wikipedia" class="text-blue-600 hover:text-blue-800 font-semibold">
+                            Wikipedia
+                        </a>
+                    </li>
+                    <li *ngIf="launchDetail.links?.video_link" class="mt-2">
+                        <a [href]="launchDetail.links.video_link" class="text-blue-600 hover:text-blue-800 font-semibold">
+                            Video
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="md:w-2/3 md:pl-6">
+                <h2 class="text-xl font-semibold">{{ launchDetail.mission_name }} ({{ launchDetail.launch_year }})</h2>
+                <div class="mt-4">
+                <h3 class="font-semibold">Launch Details</h3>
+                <ul class="list-disc ml-4">
+                    <li>Flight Number: {{ launchDetail.flight_number }}</li>
+                    <li>Launch Year: {{ launchDetail.launch_year }}</li>
+                    <li>Launch Date (UTC): {{ launchDetail.launch_date_utc }}</li>
+                    <li *ngIf="launchDetail.launch_site?.site_name_long">Launch Site: {{ launchDetail.launch_site.site_name_long }}</li>
+                    <li>Launch Status: 
+                    <span [ngClass]="{'text-green-500': launchDetail.launch_success, 'text-red-500': !launchDetail.launch_success}">
+                        {{ launchDetail.launch_success ? 'Successful' : 'Failed' }}
+                    </span>
+                    </li>
+                </ul>
+            </div>
+            <hr class="my-6 bg-black h-1">
+            <div class="flex flex-row items-center justify-around">
+                <div class="mt-4">
+                    <h3 class="font-semibold">Rocket Specifications</h3>
+                    <ul class="list-disc ml-4">
+                        <li *ngIf="launchDetail.rocket?.rocket_id">ID: {{ launchDetail.rocket.rocket_id }}</li>
+                        <li *ngIf="launchDetail.rocket?.rocket_name">Name: {{ launchDetail.rocket.rocket_name }}</li>
+                        <li *ngIf="launchDetail.rocket?.rocket_type">Type: {{ launchDetail.rocket.rocket_type }}</li>
+                    </ul>
+                </div>
+            </div>        
+          </div>
+        </div>    
+        <hr class="my-6 bg-black h-1">
+        <div class="mt-4">
+            <h3 class="font-semibold">Launch Details</h3>
+            <p class="text-gray-600">{{ launchDetail.details }}</p>
+            
+        </div>
+      </div>
+</div>
